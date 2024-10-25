@@ -1,0 +1,61 @@
+# Crew config
+crew:
+- name: Calculator
+  description: Solves math problems
+  signature: mathProblem:string "a math problem to be solved using Python code" -> solution:string "the solution to the math problem"
+  provider: google-gemini
+  provider_key_name: GEMINI_API_KEY
+  ai:
+    model: gemini-1.5-pro
+    temperature: 0
+  options:
+    debug: true
+    codeExecution: true
+
+- name: CalendarAgent
+  description: Looks up calendar availability
+  signature: startTime:string "start time in ISO date format", endTime:string "end time in ISO date format", duration:number "in minutes" -> availableSlots:string[] "list of available time slots"
+  provider: openai
+  provider_key_name: OPENAI_API_KEY
+  ai:
+    model: gpt-4o
+    temperature: 0
+  options:
+    debug: true
+  functions:
+    - CurrentDateTime
+    - FindAvailableTimeSlots
+
+- name: EmailSummarizerAgent
+  description: Summarizes long emails into a short summary
+  signature: email:string "the email to summarize" -> shortSummary:string "summarize in 10 to 20 words"
+  provider: openai
+  provider_key_name: OPENAI_API_KEY
+  ai:
+    model: gpt-4o-mini
+    temperature: 0.3
+  options:
+    debug: true
+
+- name: Planner
+  description: Creates a plan to help a user with a question they have.
+  signature: chatHistory:string[] "chat history with the user", latestMessage:string "the latest message from the user" -> plan:string "a step by step plan to help the user based on company policies.", questions:string "questions from company documents that we need answers for in order to help the user"
+  provider: openai
+  provider_key_name: OPENAI_API_KEY
+  ai:
+    model: gpt-4o-mini
+    temperature: 0
+  options:
+    debug: true
+
+- name: EmailBasedLeadNotificationAgent
+  description: "Our domain is @buddhic.ai. Determine if an email is from a prospect or potential customer. If it is a sales opportunity, create a notification for the user on slack."
+  signature: email:string "a new email received by the user" -> isSalesOpportunity:boolean "true or false only", senderName:string "name of the email sender", companyName:string "name of the sender's company if known", emailSubject:string "subject of the email", emailSummary:string "brief summary of the email content, null if not a sales opportunity", opportunityDescription:string "description of the potential sales opportunity, null if not a sales opportunity", emailUrl:string "URL to access the full email"
+
+  provider: google-gemini
+  provider_key_name: GEMINI_API_KEY
+  ai:
+    model: gemini-1.5-pro-002
+    temperature: 0
+  options:
+    debug: false

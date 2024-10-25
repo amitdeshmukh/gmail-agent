@@ -88,3 +88,20 @@ export async function authorize() {
   
   return client;
 }
+
+/**
+ * Clears the cached credentials and deletes the token file.
+ *
+ * @return {Promise<void>}
+ */
+export async function clearCredentials() {
+  cachedClient = null;
+  try {
+    await fs.unlink(TOKEN_PATH);
+    console.log('Credentials cleared successfully.');
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      console.error('Error clearing credentials:', error);
+    }
+  }
+}

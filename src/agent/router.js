@@ -20,6 +20,8 @@ const salesSupport = new Route('salesSupport', [
 ]);
 
 const router = new Router(ai);
+router.setOptions({ debug: false });
+
 await router.setRoutes(
   [customerSupport, salesSupport]
 );

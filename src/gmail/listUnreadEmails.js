@@ -34,12 +34,18 @@ export async function listUnreadEmails() {
 
       return {
         id: message.id,
-        from: message.payload.headers.find(header => header.name === 'From').value,
-        to: message.payload.headers.find(header => header.name === 'To').value,
-        date: message.payload.headers.find(header => header.name === 'Date').value,
-        subject: message.payload.headers.find(header => header.name === 'Subject').value,
+        from: message.payload.headers.find((header) => header.name === "From")
+          .value,
+        to: message.payload.headers.find((header) => header.name === "To")
+          .value,
+        date: message.payload.headers.find((header) => header.name === "Date")
+          .value,
+        subject: message.payload.headers.find(
+          (header) => header.name === "Subject"
+        ).value,
         text: text,
         snippet: message.snippet,
+        email_url: `https://mail.google.com/mail/u/0/#inbox/${message.id}`,
       };
     });
 

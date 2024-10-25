@@ -1,8 +1,13 @@
 {
   "type": "module",
   "dependencies": {
+    "@amitdeshmukh/ax-crew": "^2.0.3",
+    "@ax-llm/ax": "^9.0.23",
     "@google-cloud/local-auth": "^2.1.0",
+    "@slack/bolt": "^4.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^5.0.1",
     "googleapis": "^105.0.0",
-    "llmclient": "^8.1.13"
+    "llmclient": "^8.1.15"
   }
 }
